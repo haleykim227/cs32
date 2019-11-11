@@ -1,0 +1,93 @@
+03/12/19
+Haley Kim
+405111152
+
+1a)
+					50
+
+				  20	      60
+
+			   10          40          70
+
+			     15     30         65      80 
+
+				  25  38             72
+
+1b)
+Pre-order: 50 20 10 15 40 30 25 38 60 70 65 80 72
+In-order: 10 15 20 25 30 38 40 50 60 65 70 72 80
+Post-order: 15 10 25 38 30 40 20 65 72 80 70 60 50
+
+1c)
+					50
+
+				  15	      60
+
+			   10          40          70
+
+			            25         65      80 
+
+				      38             72
+2a)
+struct BSTNode
+{
+public:
+	BSTNode() : m_data(0), m_leftChild(nullptr), m_rightChild(nullptr), m_parent(nullptr) {}
+	BSTNode(int data) : m_data(data), m_leftChild(nullptr), m_rightChild(nullptr), m_parent(nullptr) {}
+	BSTNode(int data, BSTNode* parent) : m_data(data), m_leftChild(nullptr), m_rightChild(nullptr), m_parent(parent) {}
+private:
+	int m_data;
+	BSTNode* m_leftChild;
+	BSTNode* m_rightChild;
+	BSTNode* m_parent;
+};
+
+2b)
+pseudocode:
+
+input: a value to insert
+	if tree is empty
+		allocate new node and put value into it
+		point the root pointer to our new node
+		new node's parent and both children pointers are nullptrs
+	set current pointer as root pointer, set parent pointer as nullptr
+	start at root of tree
+	while we are not done,
+		if current node's value is equal to value, done
+		if current node's value is greater than value
+			if there is a left child, set parent as current and current to its left child
+			else allocate a new node, put value into it, and set current node's left pointer to the new node
+				set new node's parent as current, and its children as nullptr
+		if current node's value is smaller than value
+			if there is a right child, set parent as current and current to its right child
+			else allocate a new node, put value into it, and set current node's right pointer to the new node
+				set new node's parent as current, and its children as nullptr
+
+3a)
+					7
+
+				  3	      6
+
+			     0        2    4
+
+3b)[0] to [5]: 7 3 6 0 2 4
+
+3c)[0] to [4]: 6 3 4 0 2
+
+4a) O(C + S)
+
+4b) O(log C + S)
+
+4c) O(logC + logS)
+
+4d) O(logS)
+
+4e) O(1)
+
+4f) O(logC + S)
+
+4g) O(S)
+
+4h) O(C*logS)
+
+			    
