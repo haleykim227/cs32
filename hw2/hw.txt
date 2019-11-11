@@ -1,0 +1,12 @@
+02/05/19
+Haley Kim
+405 111 152
+
+Homework 2
+
+2) 
+(3,5) (3,6) (3,4) (2,4) (1,4) (1,3) (1,2) (1,1) (2,1) (3,3) (4,5) (5,5)
+
+4) 
+(3,5) (4,5) (3,4) (3,6) (5,5) (3,3) (2,4) (6,5) (5,4) (1,4) (7,5) (5,3)
+   The two algorithms differ in that stack searches depth-first, because it pops the most recent item that was pushed and explores its neighbors. Hence, it follows one path all the way down before visiting another path. On the other hand, queue searches breadth-first, because it pops the item that was pushed first and explores its neighbors. Hence, it expands its radius one step in each direction at a time.
