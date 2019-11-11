@@ -1,0 +1,36 @@
+Haley Kim
+03/14/19
+405111152
+
+1.
+GenomeMatcher::findRelatedGenomes() is not fully implemented.
+
+2.
+Each method satisfies the big-O requirements.
+
+3.
+Trie's find() method:
+	create vector of ValueTypes called test
+	if key is empty, returns test (base case)
+	looping through all of m_root's children
+		if first letter of key matches the child's label,
+			call findHelper with inputs test, key, index of 1, exactMatchOnly, and that children pointer
+	return test
+
+GenomeMatcher's findGenoemsWithThidDNA() method:
+	if fragment is shorter than minimumlength, return false
+	if minimumLength is shorter than GenomeMatcher's minSearchLength, return false
+	if exactMatchOnly is true
+		cut off first letter of fragment
+		find that part of fragment using find from Trie of DNAMatches and store the output
+		going through each of the found DNAMatches
+			find the Genome associated with each of the DNAMatch's genomeName
+			extract length j from that DNAMatch's position from the found Genome, j going from minimumLength to fragment's length
+			if the extract function returned true and you can find the result from extract in the fragment,
+				store this DNAMatch's name and position into a new DNAMatch variable and store j as its length
+				store this new DNAMatch variable into a vector
+			if this new vector is empty, return false
+			find the DNAMatch with the largest length member variable and store that into matches
+	if exactMatchOnly is false
+		same thing as when exactMatchOnly is false, but instead of "if the extract function returned true and you can find the result from extract in the fragment,", its "if extract function returns true and the result and fragment have only a maximum difference of one letter" 
+			this is achieved using an equals helper function that i wrote
