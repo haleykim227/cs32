@@ -1,0 +1,172 @@
+Haley Kim
+405111152
+Project 2 Report
+
+Description of Design:
+- My doubly-linked list implementation uses a circular doubly-linked list with a dummy node. My list nodes contain an ItemType called data, a next pointer, and a previous pointer. They are in an order of least to greatest, whether it be for strings or unsigned longs.
+
+Pseudocode for non-trivial algorithms:
+Set::Set()
+	set size to 0
+	create dummy node
+	connect dummy node to itself with next & prev pointers
+Set::~Set()
+	loop through every relevant Node
+		temporarily store next pointer
+		deallocate current pointer's node
+		copy temp pointer into current pointer
+	deallocate dummy node
+Set::Set(const Set& other)
+	same as default constructor
+	loop through the other Set
+		use insert function to add Node from other Set into this Set
+Set& Set::operator=(const Set& rhs)
+	check if rhs is same address as this
+		if not, use copy constructor to create temporary Set same as rhs
+		use swap function to swap this Set and temporary Set
+bool Set::insert(const ItemType& value)
+	if Set is currently empty
+		create new Node
+		connect new Node's pointers to dummy node
+		connect dummy node's pointers to new Node
+		increment listSize
+		return true
+	otherwise, loop through every relevant Node
+		if value already exists,
+		return false
+	loop through every relevant Node again
+		find and store position of Node with data immediately greater than value
+	create new Node
+	store value into new Node's data
+	connect new Node to position and position's previous
+	connect position's previous to new Node
+	connect position's to new Node
+	increment listSize
+	return true
+bool Set::erase(const ItemType& value)
+	loop through every relevant Node
+		look for value
+	if value not found,
+		return false
+	loop through every relevant Node
+		if value found, record position
+	connect position's previous and next to each other
+	deallocate position's Node
+	decrement listSize
+	return true
+bool Set::contains(const ItemType& value)
+	if Set is empty,
+		return false
+	loop through every relevant Node
+		if value is found,
+			return true
+	return false
+bool Set::get(int pos, ItemType& value) const
+	if pos is negative or equal to or greater than listSize,
+		return false
+	move through pos items in Set
+	assign value as that Node's data
+	return true
+void Set::swap(Set& other)
+	create tempSize as listSize
+	listSize becomes other Set's listSize
+	other Set's listSize becomes tempSize
+	
+	tempPtr becomes pointer to dummy
+	pointer to dummy becomes other Set's pointer to dummy
+	other Set's pointer to dummy becomes tempPtr
+void Set::dump() const
+	loop through every relevant Node
+		write out Node's data to cerr
+unite(const Set& s1, const Set& s2, Set& result)
+	create temporary Set
+	repeatedly through every Node in s1:
+		get data from Node in s1
+		insert into temporary Set using insert function
+	repeatedly through every Node in s2:
+		get data from Node in s2
+		insert into temporary Set using insert function
+	set result Set equal to temporary Set
+void subtract(const Set& s1, const Set& s2, Set& result)
+	create temporary Set
+	add s1 and s2 into temporary Set using unite function
+	repeatedly through every Node in s2:
+		get data from Node in s2
+		erase that data from temporary Set
+	set result Set equal to temporary Set
+
+Test Cases:
+    Set ss; // default constructor
+    assert(ss.insert("a")); // insert function for empty set
+    assert(ss.insert("b")); // insert function for set with data in it
+    assert(ss.insert("d")); 
+    assert(ss.insert("c")); // insert function for data who's value should go in between other values
+    assert(ss.insert("f"));
+    assert(ss.insert("e")); // insert function for data who's value should go in between other values
+    assert(!ss.insert("e")); // insert function for duplicates
+    assert(ss.erase("a")); // erase function for existing value
+    assert(ss.insert("a")); // insert function for value that should go in front
+    cerr << ss.contains("a") << endl; // should contain a, cerr 1
+    cerr << ss.contains("z") << endl; // should not contain z, cerr 0
+    Set ss2; // default constructor
+    cerr << ss2.contains("a") << endl; // should not contain a, cerr 1
+    ss.dump();
+    ItemType z = "zzz";
+    cerr << ss.get(5,z) << endl; // z should be assigned "f"
+    cerr << z << endl; // prints f
+    cerr << ss2.get(0,z) << endl; // ss2 is empty, cerr 0 since there are no elements
+    ss2.insert("x");
+    ss2.insert("y");
+    ss2.insert("z");
+    ss2.dump();
+    ss.swap(ss2); // ss should now contain x, y, z
+    ss.dump();
+    cerr << ss.size() << endl; // ss.size() should be 3
+    cerr << ss2.size() << endl; // ss2.size() should be 6
+    ss2.dump();
+    cerr << endl;
+    cerr << endl;
+    ss.dump();
+    Set ss3(ss); // copy constructor using ss which contains x,y,z
+    ss3.dump();
+    cerr << ss3.size() << endl; // ss3.size() should be 3
+    cerr << ss.size() << endl; // ss.size() should be 3
+    ss2.dump();
+    Set ss4(ss2); // copy constructor using ss2 which contains a,b,c,d,e,f
+    ss4.dump();
+    cerr << ss4.size() << endl; // ss4.size() should be 6
+    ss.dump();
+    ss2.dump();
+    unite(ss, ss2, ss3); // unite function using ss(x,y,z) and ss2(a,b,c,d,e,f), ss3 should be (a,b,c,d,e,f,x,y,z)
+    cerr << endl;
+    ss3.dump();
+    subtract(ss3, ss, ss2); // subtract function using ss3(a,b,c,d,e,f,x,y,z) and ss(x,y,z), ss2 should be (a,b,c,d,e,f)
+    cerr << endl;
+    ss2.dump();
+    cerr << endl;
+    Set set1; // default constructor
+    set1.insert("hello");
+    set1.insert("world");
+    set1.dump();
+    Set set2;
+    set2.insert("안녕");
+    set2.insert("지구");
+    set2.dump();
+    unite(set1, set2, set1); // unite function using set1(hello,world) and set2(안녕,지구), set1 should be (hello,world,안녕,지구), also testing aliasing
+    cerr << endl;
+    set1.dump();
+    subtract(set1, set2, set2); // subtract function using set1(hello,world,안녕,지구) and set2(안녕,지구), set2 should become (hello,world), also testing aliasing
+    set2.dump();
+    Set s1;
+    s1.insert("a");
+    s1.insert("b");
+    s1.insert("c");
+    Set s2;
+    s2.insert("d");
+    s2.insert("e");
+    s2.insert("f");
+    s1.swap(s2); // swap function, s1 should now be (d,e,f)
+    cerr << endl;
+    s1.dump();
+}
+		
