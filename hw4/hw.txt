@@ -1,0 +1,19 @@
+03/04/19
+Haley Kim
+405111152
+
+Homework 4
+
+2. Because the "<" operator is not defined for the Coord class, and because the set type requires the comparison operator to be able to carry out the insert function.
+
+3b. A single parameter recursive function would not work because the function would not be able to pass down the names of the Menus above it.
+
+4a. The time complexity of this algorithm is O(N^3). This is because we get three levels deep with the three for-loops. For each for-loop, we proceed until we reach N, and the embedded for-loop each proceeds until we reach N. Therefore, the time complexity becomes O(N*N*N), or, O(N^3).
+
+4b. The time complexity of this algorithm is still O(N^3). Even though for the second for-loop, the limit is now i instead of N, in the worst case scenario, it is still N. In the average scenario, i would be N/2 and the complexity of the two inner loops would be O(0.5*N^2). Multiplying that with the outer loop, the time complexity would be O(0.5*N^3), and hence, O(N^3).
+
+5a. The worst case time complexity is O(N^2). This is because the for-loop in unite runs N times, while the function "get" runs N times, and function "insert" calls "findFirstAtLeast", which runs N times. Since "get" and "insert" are separate calls, the total would be 2N operations. 2N*N would be 2N^2, and the Big-O would be O(N^2).
+
+5b. The time complexity is O(N*log N). This is because the first two for-loops both have a complexity of O(N), and the "sort" function has a complexity of O(N*log N). The while-loop has a complexity of O(N), and the last for-loop has a complexity of O(2N). Overall, O(N*log N) is the only relevant time complexity, and the overall time complexity of the function is O(N*log N).
+
+5c. The time complexity is O(N). This is because the assignment operator between *this and set1 runs N times, the while-loop runs N or 2N times (does not matter which, both are N), and the last for-loop runs N times. The overall time complexity would be O(N) from all these parts.
